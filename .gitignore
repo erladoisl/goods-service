@@ -3,3 +3,4 @@ db.sqlite3
 parsing/migrations/__pycache__/
 parsing/parsing/geckodriver.log
 parsing/parsing/__pycache__/
+parsing/parsing/market/__pycache__/

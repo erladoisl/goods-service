@@ -101,8 +101,19 @@ def get_price(link):
         <BLANKLINE>
         >>> price
         43699
+        >>> price = get_price('https://www.eldorado.ru/cat/detail/smartfon-xiaomi-redmi-9c-nfc-2-32gb-midnight-gray/')
+        <BLANKLINE>
+        >>> price
+        8999
     '''
     domain = get_domain(link)
     html = get_html(link, domain)
 
     return parser[domain](html)
+
+
+if __name__ == '__main__':
+    from market.util import save_file
+    link = 'https://www.eldorado.ru/cat/detail/smartfon-redmi-9a-32gb-granite-gray/'
+    html = get_html(link, '')
+    save_file('eldo', 'html', html)
