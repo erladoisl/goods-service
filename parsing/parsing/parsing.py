@@ -4,9 +4,14 @@ from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium_stealth import stealth
-from market.dns import parse as dns_parse
-from market.eldorado import parse as eldorado_parse
-from market.yandex import parse as yandex_parse
+try:
+    from market.dns import parse as dns_parse
+    from market.eldorado import parse as eldorado_parse
+    from market.yandex import parse as yandex_parse
+except:
+    from parsing.parsing.market.dns import parse as dns_parse
+    from parsing.parsing.market.eldorado import parse as eldorado_parse
+    from parsing.parsing.market.yandex import parse as yandex_parse
 from pyquery import PyQuery
 
 parser = {
@@ -46,6 +51,7 @@ def get_html(url: str, domain: str) -> str:
     options.add_argument("start-maximized")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
+    options.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2})
     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
 
     stealth(driver,
@@ -114,6 +120,7 @@ def get_price(link):
 
 if __name__ == '__main__':
     from market.util import save_file
+
     link = 'https://www.eldorado.ru/cat/detail/smartfon-redmi-9a-32gb-granite-gray/'
     html = get_html(link, '')
     save_file('eldo', 'html', html)

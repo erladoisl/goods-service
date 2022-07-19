@@ -2,7 +2,7 @@ import logging
 from pyquery import PyQuery
 
 try:
-    from market.util import to_int, save_file
+    from parsing.parsing.market.util import to_int, save_file
 except:
     from util import to_int, save_file
 
