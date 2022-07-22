@@ -8,16 +8,19 @@ try:
     from market.dns import parse as dns_parse
     from market.eldorado import parse as eldorado_parse
     from market.yandex import parse as yandex_parse
+    from market.mvideo import parse as mvideo_parse
 except:
     from parsing.parsing.market.dns import parse as dns_parse
     from parsing.parsing.market.eldorado import parse as eldorado_parse
     from parsing.parsing.market.yandex import parse as yandex_parse
+    from parsing.parsing.market.mvideo import parse as mvideo_parse
 from pyquery import PyQuery
 
 parser = {
     'www.dns-shop.ru': dns_parse,
     'www.eldorado.ru': eldorado_parse,
-    'market.yandex.ru': yandex_parse
+    'market.yandex.ru': yandex_parse,
+    'www.mvideo.ru': mvideo_parse
 }
 
 

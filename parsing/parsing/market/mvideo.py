@@ -5,7 +5,10 @@ from pyquery import PyQuery
 try:
     from parsing.parsing.market.util import to_int, save_file
 except:
-    from util import to_int, save_file
+    try:
+        from util import to_int, save_file
+    except:
+        from market.util import to_int, save_file
 
 
 def parse(html):
