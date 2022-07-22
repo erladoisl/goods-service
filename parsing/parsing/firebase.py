@@ -15,18 +15,18 @@ db = firestore.client()
 def get_last_price(link, prices) -> Dict[str, str]:
     link_prices = prices.where('link_id', '==', link.id)
     ordered_prices = link_prices.order_by("date", direction=firestore.Query.DESCENDING)
-    last_prices = ordered_prices.limit(1)
-    last_price = [price.to_dict() for price in last_prices.stream()][0]
+    last_prices = ordered_prices.limit(1).stream()
+    last_price_list = [price.to_dict() for price in last_prices]
     
-    return last_price
+    return last_price_list[0] if len(list(last_price_list)) > 0 else {}
 
 
 def need_to_get_current_price(link, prices) -> bool:
     now = datetime.now()
     last_price = get_last_price(link, prices)
-    date = last_price['date']
+    date = last_price.get('date', None)
 
-    return not (date.year == now.year and date.month == now.month and date.day == now.day)
+    return date == None or not (date.year == now.year and date.month == now.month and date.day == now.day)
 
 
 def get_links_to_parse() -> List[Dict[str,str]]:
@@ -57,7 +57,7 @@ def update_prices():
         Обновляет текущую цену для всех активных ссылок
     '''
     links = get_links_to_parse()
-    
+
     if len(links) == 0:
         print('Все продукты содержат актуальные данные')
 
