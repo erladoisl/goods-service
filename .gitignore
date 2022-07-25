@@ -4,3 +4,5 @@ parsing/migrations/__pycache__/
 parsing/parsing/geckodriver.log
 parsing/parsing/__pycache__/
 parsing/parsing/market/__pycache__/
+parsing/management/commands/__pycache__/
+old requirenments.txt
