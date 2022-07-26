@@ -2,8 +2,9 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium_stealth import stealth
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium_stealth import stealth
+from config import project_path
+import logging
+from pyquery import PyQuery
 try:
     from market.dns import parse as dns_parse
     from market.eldorado import parse as eldorado_parse
@@ -14,7 +15,6 @@ except:
     from parsing.parsing.market.eldorado import parse as eldorado_parse
     from parsing.parsing.market.yandex import parse as yandex_parse
     from parsing.parsing.market.mvideo import parse as mvideo_parse
-from pyquery import PyQuery
 
 parser = {
     'www.dns-shop.ru': dns_parse,
@@ -51,11 +51,8 @@ def get_html(url: str, domain: str) -> str:
         '<html><head></head><body>x</body></html>'
     '''
     options = webdriver.ChromeOptions()
-    options.add_argument("start-maximized")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option('useAutomationExtension', False)
-    options.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2})
-    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(executable_path=f'{project_path}parsing/parsing/chromedriver', options=options)
 
     stealth(driver,
             languages=["en-US", "en"],
@@ -72,12 +69,14 @@ def get_html(url: str, domain: str) -> str:
     html = driver.page_source
 
     if make_captcha(html) and 'yandex' in domain:
+        logging.info('Pass captcha required in yandex')
         driver.find_element(By.CLASS_NAME, 'CheckboxCaptcha-Button').click()
         sleep(15)
         html = driver.page_source
 
     text = html
     driver.close()
+    logging.info('HTML page successfully loaded!')
 
     return text
 
@@ -116,6 +115,7 @@ def get_price(link):
         8999
     '''
     domain = get_domain(link)
+    logging.info(f'Domain: {domain}')
     html = get_html(link, domain)
 
     return parser[domain](html)

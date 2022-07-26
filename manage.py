@@ -5,7 +5,8 @@ import sys
 import logging
 import traceback
 from datetime import datetime
-logging.basicConfig(filename=f'/home/rakhina/goods-service/dtp.log', level=logging.INFO)
+from config import project_path
+logging.basicConfig(filename=f'{project_path}dtp.log', level=logging.INFO)
 
 
 def main():
