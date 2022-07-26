@@ -6,3 +6,4 @@ parsing/parsing/__pycache__/
 parsing/parsing/market/__pycache__/
 parsing/management/commands/__pycache__/
 old requirenments.txt
+firebase
