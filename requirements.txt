@@ -1,10 +1,10 @@
 asgiref==3.5.2
 async-generator==1.10
 attrs==21.4.0
-autopep8 @ file:///opt/conda/conda-bld/autopep8_1650463822033/work
+autopep8
 CacheControl==0.12.11
 cachetools==5.2.0
-certifi @ file:///C:/Windows/TEMP/abs_e9b7158a-aa56-4a5b-87b6-c00d295b01fanefpc8_o/croots/recipe/certifi_1655968940823/work/certifi
+certifi 
 cffi==1.15.1
 charset-normalizer==2.1.0
 cryptography==37.0.4
@@ -33,7 +33,7 @@ proto-plus==1.20.6
 protobuf==3.20.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycodestyle @ file:///tmp/build/80754af9/pycodestyle_1636635402688/work
+pycodestyle
 pycparser==2.21
 pyOpenSSL==22.0.0
 pyparsing==3.0.9
@@ -48,7 +48,7 @@ six==1.16.0
 sniffio==1.2.0
 sortedcontainers==2.4.0
 sqlparse==0.4.2
-toml @ file:///tmp/build/80754af9/toml_1616166611790/work
+toml
 trio==0.21.0
 trio-websocket==0.9.2
 tzdata==2022.1
