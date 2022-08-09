@@ -1,1 +1,7 @@
-goods-gazer-firebase-adminsdk-hide.json
+goods-gazer-firebase-adminsdk.json
+dtp.log
+modules/config.py
+goods_service_env/
+modules/__pycache__/
+modules/market/__pycache__/
+__pycache__/
