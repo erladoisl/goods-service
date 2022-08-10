@@ -4,3 +4,4 @@ firebase-admin
 selenium
 selenium_stealth
 webdriver-manager
+protobuf==3.20.1
