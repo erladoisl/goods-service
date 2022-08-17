@@ -11,6 +11,7 @@ try:
     from market.yandex import parse as yandex_parse
     from market.mvideo import parse as mvideo_parse
     from market.sbermega import parse as sbermega_parse
+    from market.ozon import parse as ozon_parse
     from config import project_path
     from config import chromedriver_path
 except:
@@ -19,6 +20,7 @@ except:
     from modules.market.yandex import parse as yandex_parse
     from modules.market.mvideo import parse as mvideo_parse
     from modules.market.sbermega import parse as sbermega_parse
+    from modules.market.ozon import parse as ozon_parse
     from modules.config import project_path
     from modules.config import chromedriver_path
 
@@ -30,6 +32,7 @@ parser = {
     'market.yandex.ru': yandex_parse,
     'www.mvideo.ru': mvideo_parse,
     'sbermegamarket': sbermega_parse,
+    'www.ozon.ru': ozon_parse,
 }
 
 
@@ -100,6 +103,8 @@ def get_domain(link):
         'www.dns-shop.ru'
         >>> get_domain('https://www.mvideo.ru/products/smartfon-apple-iphone-13-pro-max-128gb-alpine-green-30063190')
         'www.mvideo.ru'
+        >>> get_domain('https://www.ozon.ru/product/smesitel-qri-dizaynerskiy-iz-latuni-dlya-rakoviny-kollektsii-io-666954132/?advert=qp34iejOwy1z_RXeDMCzKfZbKVQI5V46pnXtR3fhuZ_OP85ixNjTsCejAFrLKPHTZyiVg8AA924nxCfWbrZnyQSLhKxKgWenc9qrPvmbozy3si2C3W73FmSEq_ddLJ2a4WrWrWo10KHbgRRkt60DwXDRcpX45BwTfeWFSFMq7vowNsixzLMoITzDzg&hs=1&sh=rauJU2tnJQ')
+        'www.ozon.ru'
     '''
     splited = list(link.split('/'))
 
