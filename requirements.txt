@@ -1,7 +1,7 @@
-pytelegrambotapi
-pyquery
+django==4.2.3
+redis==4.6.0
+celery==5.3.1
 firebase-admin
-selenium
-selenium_stealth
-webdriver-manager
-protobuf==3.20.1
+pyrebase
+pyquery
+aiohttp

@@ -1,7 +1,6 @@
+config.py
+db.sqlite3
 goods-gazer-firebase-adminsdk.json
-dtp.log
-modules/config.py
-goods_service_env/
-modules/__pycache__/
-modules/market/__pycache__/
-__pycache__/
+goods_service/__pycache__/
+scraper/market/__pycache__/
+scraper/migrations/__pycache__/
