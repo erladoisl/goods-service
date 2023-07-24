@@ -14,12 +14,6 @@ log.setLevel(c.LOGGER_CONFIG['level'])
 
 
 def get_price_by_reg(html) -> float:
-    '''
-        >>> get_price_by_reg('<div class="_3NaXx _3kWlK" data-tid="ca3255c7"><span data-autotest-value="9" data-autotest-currency="₽"><span>9 990</span>&nbsp;<span class="-B-PA">₽</span></span><span data-autotest-value="9" data-autotest-currency="₽"><span>9 990</span>&nbsp;<span class="-B-PA">₽</span></span></div></div>')
-        9990
-        >>> get_price_by_reg('<div class="_3NaXx _3kWlK" data-tid="ca3255c7"><span ><span>12 предложений от 13 000 ₽</span>&nbsp;<span class="-B-PA">₽</span></span></div></div>')
-        13000
-    '''
     try:
         return to_int(re.search('[0-9]+ предложений от [0-9 ]+ ₽', html).group(0).split('от')[-1]) 
     except:
@@ -29,12 +23,6 @@ def get_price_by_reg(html) -> float:
 
 
 def parse(html):
-    '''
-        Возвращает стоимость товара из HTML
-
-        >>> parse('<div _ngcontent-serverapp-c156="" class="price price--pdp-emphasized-personal-price ng-star-inserted"><span _ngcontent-serverapp-c156="" class="price__main-value"> 119&nbsp;999&nbsp;₽ </span><span _ngcontent-serverapp-c156="" class="price__sale-value ng-star-inserted"> 149&nbsp;999 </span><!----></div>')
-        119999
-    '''
     price = -1
     pq = PyQuery(html)
 

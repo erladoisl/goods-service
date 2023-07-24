@@ -5,9 +5,6 @@ import re
 def to_int(price: str) -> float:
     '''
         Из строки берет только числа и конвертирует в int
-
-        >>> to_int('10 000 р.')
-        10000
     '''
     return int(''.join(re.findall(r'\d+', price)))
 

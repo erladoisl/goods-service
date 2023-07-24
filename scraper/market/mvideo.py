@@ -15,9 +15,6 @@ log.setLevel(c.LOGGER_CONFIG['level'])
 def parse(html):
     '''
         Возвращает стоимость товара из HTML
-
-        >>> parse('<div _ngcontent-serverapp-c156="" class="price price--pdp-emphasized-personal-price ng-star-inserted"><span _ngcontent-serverapp-c156="" class="price__main-value"> 119&nbsp;999&nbsp;₽ </span><span _ngcontent-serverapp-c156="" class="price__sale-value ng-star-inserted"> 149&nbsp;999 </span><!----></div>')
-        119999
     '''
     price = -1
     pq = PyQuery(html)
