@@ -10,10 +10,6 @@ app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
-    'sent_spam_every_one_minutes': {
-        'task': 'scraper.tasks.test_every_min',
-        'schedule': crontab(minute='*/1')
-    },
     'update_prices': {
         'task': 'scraper.tasks.update_prices_task',
         'schedule': crontab(minute='*/1')
