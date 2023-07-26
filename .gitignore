@@ -4,3 +4,8 @@ goods-gazer-firebase-adminsdk.json
 goods_service/__pycache__/
 scraper/market/__pycache__/
 scraper/migrations/__pycache__/
+__pycache__/
+app.log
+errors/
+success/
+celerybeat-schedule
