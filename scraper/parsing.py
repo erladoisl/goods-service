@@ -15,7 +15,7 @@ import config as c
 fh = logging.FileHandler(c.LOGGER_CONFIG['file'])
 fh.setFormatter(c.LOGGER_CONFIG['formatter'])
 
-log = logging.getLogger('manage')
+log = logging.getLogger('parsing')
 log.addHandler(fh)
 log.setLevel(c.LOGGER_CONFIG['level'])
 
