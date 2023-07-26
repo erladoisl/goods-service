@@ -32,7 +32,7 @@ def parse(html):
         try:
             price = get_price_by_reg(html)
         except:
-            file_name = save_file('wrond_yandex_html', 'html', html)
+            file_name = save_file('yandex_html', 'html', html)
             log.error(
                 f'Ошибка получения стоимости товара, текст HTML будет сохранен в файл: {file_name}')
     finally:

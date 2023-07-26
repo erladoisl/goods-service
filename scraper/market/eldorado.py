@@ -21,7 +21,7 @@ def parse(html):
     try:
         price = to_int(pq("div.product-box-price__active").text().split('р.')[0])
     except:
-        file_name = save_file('wrond_eldorado_html', 'html', html)
+        file_name = save_file('eldorado_html', 'html', html)
         log.error(
             f'Ошибка получения стоимости товара, текст HTML будет сохранен в файл: {file_name}')
     finally:

@@ -22,7 +22,7 @@ def parse(html):
     try:
         price = to_int(pq("span.price__main-value").text())
     except:
-        file_name = save_file('wrond_mvideo_html', 'html', html)
+        file_name = save_file('mvideo_html', 'html', html)
         log.error(
             f'Ошибка получения стоимости товара, текст HTML будет сохранен в файл: {file_name}')
     finally:

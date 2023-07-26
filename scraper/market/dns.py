@@ -20,7 +20,7 @@ def parse(html):
     try:
         price = to_int(pq("div.product-buy__price").html().split('<span')[0])
     except:
-        file_name = save_file('wrond_dns_html', 'html', html)
+        file_name = save_file('dns_html', 'html', html)
         log.error(
             f'Ошибка получения стоимости товара, текст HTML будет сохранен в файл: {file_name}')
     finally:
