@@ -88,7 +88,7 @@ class Request:
             return self.get_selenium_res(class_name)
 
     def get_html(self, browser):
-        time_to_wait = 15
+        time_to_wait = 90
         try:
             WebDriverWait(browser, time_to_wait).until(
                 EC.presence_of_element_located((By.CLASS_NAME, class_name)))
@@ -104,6 +104,8 @@ class Request:
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--window-size=1420, 1080')
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_argument('--disable-dev-shm-usage')  
         options.add_argument('--disable-gpu')
         options.add_argument(f'--user-agent={Request.get_user_agent()}')
 

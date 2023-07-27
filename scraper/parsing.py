@@ -29,7 +29,7 @@ parser = {
 }
 
 
-def get_html(url: str, domain: str) -> str:
+def get_html(url: str, domain: str, class_name: str) -> str:
     '''
         1. Возращает содержимое html страницы по ссылке на неё
         2. Добавляет для домена в links_history текущее время как последнее время обращения
@@ -39,7 +39,7 @@ def get_html(url: str, domain: str) -> str:
     '''
     
     request = Request(url, domain)
-    text = request.get_selenium_res('name_of_class')
+    text = request.get_selenium_res(class_name)
 
     log.info('HTML page successfully loaded!')
 
@@ -80,7 +80,7 @@ def get_price(link):
     '''
     domain = get_domain(link)
     log.info(f'Domain: {domain}')
-    html = get_html(link, domain)
+    html = get_html(link, domain, c.CLASS_NAME.get(domain, ''))
 
     return parser[domain](html)
 
