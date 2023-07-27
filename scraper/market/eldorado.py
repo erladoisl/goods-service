@@ -16,10 +16,11 @@ def parse(html):
         Возвращает стоимость товара из HTML
     '''
     price = -1
-    pq = PyQuery(html)
 
     try:
-        price = to_int(pq("div.product-box-price__active").text().split('р.')[0])
+        if for_sale(html):
+            pq = PyQuery(html)
+            price = to_int(pq(".catalogItemDetail .i-flocktory").attr['data-fl-item-price'])
     except:
         file_name = save_file('eldorado_html', 'html', html)
         log.error(
@@ -29,6 +30,19 @@ def parse(html):
         log.debug(f'Price: {price}')
         
         return price
+
+
+
+def for_sale(html):
+    '''
+        Возвращает True если товар все еще продается. Иначе - False
+    '''
+    res = 'Последняя цена:' not in html
+
+    if not res:
+        log.info('Товар закончился в eldorado')
+
+    return res
 
 
 if __name__ == '__main__':
