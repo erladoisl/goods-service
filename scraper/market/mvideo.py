@@ -17,10 +17,11 @@ def parse(html):
         Возвращает стоимость товара из HTML
     '''
     price = -1
-    pq = PyQuery(html)
 
     try:
-        price = to_int(pq("span.price__main-value").text())
+        if for_sale(html):
+            pq = PyQuery(html)
+            price = to_int(pq("span.price__main-value").text())
     except:
         file_name = save_file('mvideo_html', 'html', html)
         log.error(
@@ -30,6 +31,19 @@ def parse(html):
         log.debug(f'Price: {price}')
         
         return price
+
+
+
+def for_sale(html):
+    '''
+        Возвращает True если товар все еще продается. Иначе - False
+    '''
+    res = 'Товар временно отсутствует в продаже' not in html
+
+    if not res:
+        log.info('Товар закончился в mvideo')
+
+    return res
 
 
 if __name__ == '__main__':
