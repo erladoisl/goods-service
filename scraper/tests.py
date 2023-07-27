@@ -34,10 +34,22 @@ class MvideoTestCase(TestCase):
 
 class OzonTestCase(TestCase):
     def test_parse_success(self):
-        with open('scraper/market/test/ozon_grass.html', 'r') as f:
+        with open('scraper/market/test/ozon/ozon_grass.html', 'r') as f:
             text = f.read()
             result1 = ozon.parse(text)
             self.assertEqual(result1, 629)
+            
+    def test_page_not_exist(self):
+        with open('scraper/market/test/ozon/ozon_page_not_exists.html', 'r') as f:
+            text = f.read()
+            result1 = ozon.parse(text)
+            self.assertEqual(result1, -1)
+            
+    def test_not_sales(self):
+        with open('scraper/market/test/ozon/ozon_not_sales.html', 'r') as f:
+            text = f.read()
+            result1 = ozon.parse(text)
+            self.assertEqual(result1, -1)
         
         
 class SbermegaTestCase(TestCase):
@@ -90,5 +102,5 @@ class SeleniumRequesTestCase(TestCase):
         result1 = req.get_selenium_res('test')
         
         self.assertTrue('Набор для уборки дома GRASS' in result1)
-    
+        
     
