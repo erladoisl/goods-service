@@ -2,10 +2,11 @@
 
 Данный сервис актуализирует текущую цену о товарах в БД firebase проекта goods-gazer.
 Задача обновления цен запускается раз в день.
+Необходимо наличие проекта в firebase, данные по подключению хранить в __config.py__
 
 # How to run
 
-Update goods-gazer-firebase-adminsdk.json and modules/config.py by examples
+Update goods-gazer-firebase-adminsdk.json and __config.py__ by examples
 
 
 ### First run
