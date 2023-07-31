@@ -38,57 +38,61 @@ class Request:
         try:
             self.log.info(f'starting to get html {self.url}')
 
-            browser = webdriver.Chrome(options=Request.get_options())
-            browser.get(self.url)
-            
-            time_to_wait = 15
-            
-            try:
-                WebDriverWait(browser, time_to_wait).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, class_name)))
-            finally:
-                browser.maximize_window()
-                
+            with webdriver.Chrome(options=Request.get_options()) as browser:
                 browser.execute_cdp_cmd("Emulation.setGeolocationOverride", {
                     "latitude": self.latitude,
                     "longitude": self.longitude,
                     "accuracy": self.accuracy
                 })
                 
-                html_page = browser.page_source
+                browser.get(self.url)
+                
+                time_to_wait = 90
+                
+                try:
+                    WebDriverWait(browser, time_to_wait).until(
+                        EC.presence_of_element_located((By.CLASS_NAME, class_name)))
+                finally:
+                    browser.maximize_window()
+                    html_page = browser.page_source
+            
+                    save_file(f'1_{self.domain}', 'html', html_page, 'success')
 
-        
-                save_file(f'1_{self.domain}', 'html', html_page, 'success')
+                    if Request.make_captcha(html_page) and 'yandex' in self.domain:
+                        self.log.info('Pass captcha required in yandex')
+                        browser.find_element(
+                            By.CLASS_NAME, 'CheckboxCaptcha-Button').click()
 
-                if Request.make_captcha(html_page) and 'yandex' in self.domain:
-                    self.log.info('Pass captcha required in yandex')
-                    browser.find_element(
-                        By.CLASS_NAME, 'CheckboxCaptcha-Button').click()
+                        try:
+                            WebDriverWait(browser, time_to_wait).until(
+                                EC.presence_of_element_located((By.CLASS_NAME, class_name)))
+                        finally:
+                            browser.maximize_window()
+                            html_page = browser.page_source
+                            
+                            save_file(f'2_{self.domain}', 'html', html_page, 'success')
 
-                    try:
-                        WebDriverWait(browser, time_to_wait).until(
-                            EC.presence_of_element_located((By.CLASS_NAME, class_name)))
-                    finally:
-                        browser.maximize_window()
-                        html_page = browser.page_source
-                        html_page = self.get_html(browser)
-                        save_file(f'2_{self.domain}', 'html', html_page, 'success')
+                    self.log.info(f'html page by {self.url} successfully got')
+                    # browser.close()
 
-                self.log.info(f'html page by {self.url} successfully got')
-                browser.close()
-
-                return html_page
+                    return html_page
 
         except (TimeoutError, WebDriverException):
             self.log.error(traceback.format_exc())
-            sleep(6)
+            
+            if self.selenium_retries > 3:
+                self.log.info('maximum number of retry has been reached')
+                return None
+            
+            sleep(30)
             self.selenium_retries += 1
             self.log.info('Selenium retry #: ' + str(self.selenium_retries))
-
+            
             return self.get_selenium_res(class_name)
 
     def get_html(self, browser):
         time_to_wait = 90
+        
         try:
             WebDriverWait(browser, time_to_wait).until(
                 EC.presence_of_element_located((By.CLASS_NAME, class_name)))
@@ -105,8 +109,9 @@ class Request:
         options.add_argument('--no-sandbox')
         options.add_argument('--window-size=1420, 1080')
         options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument('--disable-dev-shm-usage')  
+        options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
+        options.add_argument("--disable-3d-apis")
         options.add_argument(f'--user-agent={Request.get_user_agent()}')
 
         return options
