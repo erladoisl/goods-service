@@ -4,6 +4,10 @@
 Задача обновления цен запускается раз в день.
 Необходимо наличие проекта в firebase, данные по подключению хранить в __config.py__
 
+# Example
+Пример отображения страницы с данными о ценах на товар
+![Image alt](https://github.com/erladoisl/goods-service/blob/master/screenshot.jpg)
+
 # How to run
 
 Update goods-gazer-firebase-adminsdk.json and __config.py__ by examples
