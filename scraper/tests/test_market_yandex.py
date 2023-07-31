@@ -33,3 +33,10 @@ class YandexTestCase(TestCase):
             text = f.read()
             result1 = yandex.parse(text)
             self.assertEqual(result1, 2090)
+
+
+    def test_404_success(self):
+        with open('scraper/tests/files/yandex/404.html', 'r') as f:
+            text = f.read()
+            result1 = yandex.parse(text)
+            self.assertEqual(result1, -1)
