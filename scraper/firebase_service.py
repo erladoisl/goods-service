@@ -19,7 +19,7 @@ import time
 fh = logging.FileHandler(c.LOGGER_CONFIG['file'])
 fh.setFormatter(c.LOGGER_CONFIG['formatter'])
 
-log = logging.getLogger('manage')
+log = logging.getLogger('firebase_service')
 log.addHandler(fh)
 log.setLevel(c.LOGGER_CONFIG['level'])
 
@@ -97,7 +97,8 @@ def update_prices():
         log.info('Все продукты содержат актуальные данные')
 
     for link in links:
-        log.info(f'Получение актуальной цены по ссылке {link["url"]}')
+        log.info(f'Updating {link}')
+        
         try:
             add_price(link['good_id'], link['id'], get_price(link['url']))
         except:
@@ -138,18 +139,7 @@ async def update_goods_price(good_id, id, url):
 
 def set_ids(collection_name):
     objects = db.collection(collection_name).stream()
-    
+
     for i, price in enumerate(objects):
         db.collection(collection_name).document(
             price.id).set({u'id': price.id}, merge=True)
-
-
-if __name__ == '__main__':
-    # links = get_links_to_parse()
-    # update_prices()
-    start_time = time.time()
-    loop = asyncio.get_event_loop()
-    future = asyncio.ensure_future(update_price_async())
-    loop.run_until_complete(future)
-    print(f'Update prices run time {time.time() - start_time} sec.')
-        
